@@ -15,11 +15,9 @@ body
     font-family: 'Gravity-Book', 'Courier New', sans-serif;
 }
 
-
-
 a
 {
-    color: white;
+    color: darkcyan;
     outline: 0;
     text-decoration: none;
 }
