@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="../css/index.css">
+         <style type="text/css">
+            #main, #main a {color: black; background: white;}
+            #main, #main p {text-align: center; line-height: 1.5;}
+            #main p.header {width: 40%; margin: 2em 20% 0;}
+            #main p {display: inline-block; width: 40%; text-align: left;}
+            #main div.images {display: inline-block; width: 100%; margin: 0;}
+            #main div.images img {display: inline-block; width: 40%; margin: 1em 20%;}
+        </style>
+   </head>
+    <body>
+        <div id="main">
+            <p class="header">Spinal - Progress</p>
+            </br></br>
+            <hr></hr>
+            
+            <p class="header">Spine structure</p>
+            <p>
+                After searching into various materials for the one with flexible and solid proprieties, I found an even better one. This boning material has the propriety of memory which allows it to take a certain shape without a permanent deformation. This property will enhance the user experience for allowing it to adapt into any spine shape. Moreover, it is perfect for testing the circuits.
+            </p>
+            </br>
+            <div class="images">
+                <a href="images/1.jpg">
+                    <img src="images/1.jpg"></img>
+                </a>
+                <a href="images/2.jpg">
+                    <img src="images/2.jpg"></img>
+                </a>
+            </div>
+            <p>
+                I cut four strips to have two of them side-by-side on front & back of the sensors to encapsulate the wires between them.
+            </p>
+            <div class="images">
+                <a href="images/3.jpg">
+                    <img src="images/3.jpg"></img>
+                </a>
+                <a href="images/4.jpg">
+                    <img src="images/4.jpg"></img>
+                </a>
+                <a href="images/5.jpg">
+                    <img src="images/5.jpg"></img>
+                </a>
+                <a href="images/6.jpg">
+                    <img src="images/6.jpg"></img>
+                </a>
+            </div>
+            <p>
+                In the image below, we have IMU sensors (BNO055) are used to get the Euler angles. As seen in the previous image, we need five of them space equally to have very accurate spine position readings.
+            </p>
+            <div class="images">
+                <a href="images/7.jpg">
+                    <img src="images/7.jpg"></img>
+                </a>
+            </div>
+            <p>
+                Since these BNO055 sensors are using I2C serial communication and we only have two pins for this on the LilyPad 328 Main board, we will need an I2C multiplexer (TCA9548A) :
+            </p>
+            <div class="images">
+                <a href="images/8.jpg">
+                    <img src="images/8.jpg"></img>
+                </a>
+                <a href="images/9.jpg">
+                    <img src="images/9.jpg"></img>
+                </a>
+            </div>
+            <p>
+                For the testing purpose, I soldered positive and negative wires to create a temporal power line :
+            </p>
+            <div class="images">
+                <a href="images/10.jpg">
+                    <img src="images/10.jpg"></img>
+                </a>
+            </div>
+            <p>
+                Finally, I am using a FTDI Basic Breakout to communicate (upload my code) to the LilyPad from an USB port :
+            </p>
+            <div class="images">
+                <a href="images/11.jpg">
+                    <img src="images/11.jpg"></img>
+                </a>
+                <a href="images/12.jpg">
+                    <img src="images/12.jpg"></img>
+                </a>
+            </div>
+            
+            </br>
+            <p class="header">Authors</p>
+            <p>
+                - Vsevolod (Seva) Ivanov</br>
+            </p>
+        </div>
+    </body>
+</html>
