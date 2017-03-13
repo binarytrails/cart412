@@ -3,11 +3,50 @@
 #include <Adafruit_BNO055.h>
 #include <utility/imumaths.h>
 
+extern "C" {
+  // from Wire library, so we can do bus scanning
+  #include "utility/twi.h"
+}
+
 #define TCAADDR 0x70
+#define IMU_SAMPLERATE_MS (100)
 
 /* Assign a unique ID to this sensor at the same time */
 Adafruit_BNO055 bno1 = Adafruit_BNO055(1);
 Adafruit_BNO055 bno2 = Adafruit_BNO055(2);
+
+void tcaselect(uint8_t i)
+{
+    if (i > 7) return;
+
+    Wire.beginTransmission(TCAADDR);
+    Wire.write(1 << i);
+    Wire.endTransmission();
+}
+
+void findIMU()
+{
+  Wire.begin();
+
+  for (uint8_t t=0; t<8; t++)
+  {
+    tcaselect(t);
+    Serial.print("TCA Port #"); Serial.println(t);
+
+    for (uint8_t addr = 0; addr<=127; addr++)
+    {
+      if (addr == TCAADDR)
+        continue;
+
+      uint8_t data;
+      if (! twi_writeTo(addr, &data, 0, 1, 1))
+      {
+        Serial.print("Found I2C 0x");
+        Serial.println(addr,HEX);
+      }
+    }
+  }
+}
 
 void displaySensorDetails(Adafruit_BNO055 *mag)
 {
@@ -25,22 +64,13 @@ void displaySensorDetails(Adafruit_BNO055 *mag)
     delay(500);
 }
 
-void tcaselect(uint8_t i)
-{
-    if (i > 7) return;
-
-    Wire.beginTransmission(TCAADDR);
-    Wire.write(1 << i);
-    Wire.endTransmission();
-}
-
-
 void setup(void)
 {
     Serial.begin(9600);
     Serial.println("BNO055 Test"); Serial.println("");
 
-    /* Initialise the 1st sensor */
+    findIMU();
+
     tcaselect(2);
     if(!bno1.begin())
     {
@@ -48,7 +78,6 @@ void setup(void)
         while(1);
     }
 
-    /* Initialise the 2nd sensor */
     tcaselect(6);
     if(!bno1.begin())
     {
@@ -85,5 +114,5 @@ void loop(void)
     Serial.print("\tZ: "); Serial.print(event.orientation.z, 4);
     Serial.println("");
 
-    delay(500);
+    delay(IMU_SAMPLERATE_MS);
 }
